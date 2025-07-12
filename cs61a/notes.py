@@ -314,16 +314,33 @@ def square(x):
 #
 
 def delay(arg):
+    """_summary_
+
+    Args:
+        arg (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     print('dealyed')
     def g():
         return arg
     return g
 
-delay(delay)()(6)()
+delay(delay)()(6)()            # 从内到外
 
 # implementing functions
 
 def remove(n, digit):
+    """_summary_
+
+    Args:
+        n (_type_): _description_
+        digit (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     kept, digits = 0, 0
     while n > 0:
         n, last = n//10, n%10
