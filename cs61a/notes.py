@@ -327,7 +327,7 @@ def delay(arg):
         return arg
     return g
 
-delay(delay)()(6)()            # 从内到外
+delay(delay)()(6)()            # 从内到外 ,因为g（）他返回了函数，后续delay才能在接收参数
 
 # implementing functions
 
@@ -422,9 +422,52 @@ def sum_square_up_to(n):
     return total
 
 
+def split(n):
+    return n // 10, n % 10
+
+def digits_sum(n):
+    if n < 10:
+        return n 
+    else :
+        all_but_last, last = split(n)
+        return digits_sum(all_but_last) + last
+    
+def luhn_sum(n):
+    if n < 10:
+        return n
+    else :
+        all_but_last, last = split(n)
+        return luhn_sum_double(all_but_last) + last
+
+def luhn_sum_double(n):
+    if n < 10:
+        return digits_sum(n * 2)
+    else:
+        all_but_last, last = split(n)
+        return luhn_sum(all_but_last) + digits_sum(last * 2)
 
 
-
+def inverse_cascade(n):
+    # k = 0
+    # j = n
+    # while j > 0 :
+    #     j //= 10
+    #     k += 1
+    k = digits_num(n)
+    n /= 10**(k-1)
+    def cascade(n):
+        # j = n
+        print(int(n)) 
+        if int(n) !=n:
+            cascade(n*10)
+            print(int(n))
+    return cascade(n)
+    
+def digits_num(n):
+    if n <10:
+        return 1
+    else:
+        return digits_num(n//10) +1 
 
 
 
@@ -504,7 +547,10 @@ inverse_cascade(12345)
 
 # Tree_shaped processes arise whenever executing the body of a 
 # recursive function makes more than one call to that function.
-        
+# 
+
+# from ucb import trace   
+@trace1
 def fib(n):
     if n ==0:
         return 0
@@ -535,7 +581,7 @@ def count_partitions_onmyown(n, m):
 #                            2.count_partitions(6,3)
 
 def count_partitions(n, m):
-    if n == 0:
+    if n == 0:               # remember just
         return 1
     elif n < 0:
         return 0
@@ -703,3 +749,22 @@ def large(s, n):
             return with_s0
         else:
             return without_s0
+        
+
+
+# def luhn_sum(n):
+#     k = 1
+#     all_but_last, last = split(n)
+#     sum = 0
+#     while last >= 0:
+#         if k%2 != 0:
+#             sum += last
+#         else:
+#             if 2*last > 9:
+#                 sum += sum_digits_iter(2*last)
+#             else:
+#                 sum += last
+#         k += 1
+#         all_but_last, last = split(all_but_last)
+#     return sum
+    

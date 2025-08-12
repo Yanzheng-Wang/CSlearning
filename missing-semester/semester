@@ -1,0 +1,4 @@
+#!/bin/sh
+#curl --head --silent https://missing.csail.mit.edu
+#echo $EPOCHSECONDS >> last-modified.txt
+date >> last-modified.txt
